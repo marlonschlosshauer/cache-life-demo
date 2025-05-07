@@ -8,11 +8,15 @@ export async function getPageData(id: string) {
   "use cache";
   cacheTag(id);
 
+  /* @ts-ignore */
+  const blocks = pages[id] ?? [];
+
+  cacheTag(...blocks);
+
   // Simulate data fetching
   return {
     id,
-    /* @ts-ignore */
-    blocks: pages[id] ?? [],
+    blocks,
     timestamp: new Date().toISOString(),
   };
 }
