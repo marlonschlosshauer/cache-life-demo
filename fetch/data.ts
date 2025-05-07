@@ -1,12 +1,16 @@
 "use server";
 
 import { pages } from "@/data/pages";
-import { unstable_cacheTag as cacheTag } from "next/cache";
+import {
+  unstable_cacheTag as cacheTag,
+  unstable_cacheLife as cacheLife,
+} from "next/cache";
 
 // Function to get page data
 export async function getPageData(id: string) {
   "use cache";
   cacheTag(id);
+  cacheLife("max");
 
   /* @ts-ignore */
   const blocks = pages[id] ?? [];
@@ -25,6 +29,7 @@ export async function getPageData(id: string) {
 export async function getBlockData(id: string) {
   "use cache";
   cacheTag(id);
+  cacheLife("max");
 
   // Simulate data fetching
   return {
