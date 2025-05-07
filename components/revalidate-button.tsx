@@ -6,7 +6,7 @@ import { revalidateId } from "@/actions/revalidate";
 
 interface RevalidateButtonProps {
   id: string;
-  type: "page" | "block";
+  type?: "page" | "block";
 }
 
 export function RevalidateButton({ id, type }: RevalidateButtonProps) {
@@ -30,9 +30,11 @@ export function RevalidateButton({ id, type }: RevalidateButtonProps) {
       <Button
         onClick={handleRevalidate}
         disabled={isLoading}
-        variant={type === "page" ? "default" : "outline"}
+        variant={
+          type === "page" ? "default" : type === "block" ? "outline" : "ghost"
+        }
       >
-        {isLoading ? "Revalidating..." : `Revalidate ${type} ${id}`}
+        {isLoading ? "Revalidating..." : `Revalidate ${id}`}
       </Button>
       {status && <p className="text-sm text-muted-foreground">{status}</p>}
     </div>
